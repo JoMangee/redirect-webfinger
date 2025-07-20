@@ -6,6 +6,12 @@ import sys
 
 from aiohttp import web
 
+from typing import List 
+
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 from . import format_response
 
 
@@ -24,7 +30,7 @@ async def handle_webfinger(request: web.Request) -> web.Response:
         content_type='application/jrd+json')
 
 
-def create_app(accts: list[str], mastodon_server: str, mastodon_user: str) -> web.Application:
+def create_app(accts: List[str], mastodon_server: str, mastodon_user: str) -> web.Application:
     app = web.Application()
     app['resources'] = [f'acct:{acct}' for acct in accts]
     app['mastodon_server'] = mastodon_server
